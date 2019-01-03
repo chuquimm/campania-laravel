@@ -23,8 +23,8 @@ class CreateDonantesTable extends Migration
             $table->string('celular', 11);
             $table->date('fnacimiento');
             $table->boolean('genero');
-            $table->unsignedInteger('sangre_id');
-            $table->char('lugarProcedencia_id', 6);
+            $table->unsignedInteger('tiposangre_id');
+            $table->char('distrito_id', 6);
             $table->longtext('foto');
             $table->boolean('sms');
             $table->timestamps();
