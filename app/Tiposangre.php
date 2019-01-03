@@ -11,4 +11,9 @@ class Tiposangre extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function donantes()
+    {
+        return $this->hasMany('App\Donante');
+    }
 }
