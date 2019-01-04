@@ -10,4 +10,9 @@ class Donante extends Model
     {
         return $this->belongsTo('App\Tiposangre');
     }
+    
+    public function distrito()
+    {
+        return $this->belongsTo('App\Distrito');
+    }
 }
