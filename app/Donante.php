@@ -15,4 +15,9 @@ class Donante extends Model
     {
         return $this->belongsTo('App\Distrito');
     }
+
+    public function campanias()
+    {
+        return $this->belongsToMany('App\Campania');
+    }
 }
