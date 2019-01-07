@@ -14,8 +14,8 @@ class CreateCampaniaDonanteTable extends Migration
     public function up()
     {
         Schema::create('campania_donante', function (Blueprint $table) {
-            $table->integer('campania');
-            $table->integer('donante');
+            $table->integer('campania_id');
+            $table->integer('donante_id');
         });
     }
 
