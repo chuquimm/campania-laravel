@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DonanteController@create')->name('donantes.create');
+Route::post('/store', 'DonanteController@store')->name('donantes.store');
+
+// Route::group('/', function (){
+//     Route::resource('donantes', 'DonanteController');
+// });
