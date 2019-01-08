@@ -17,3 +17,6 @@ Route::post('/store', 'DonanteController@store')->name('donantes.store');
 // Route::group('/', function (){
 //     Route::resource('donantes', 'DonanteController');
 // });
+Auth::routes(['register' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');

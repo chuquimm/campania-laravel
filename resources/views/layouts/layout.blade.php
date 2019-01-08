@@ -19,25 +19,12 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                <a href="{{ url('/home') }}">Home</a>
-                @else
-                <a href="{{ route('login') }}">Login</a>
-                
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
-                @endif
-                @endauth
-            </div>
-            @endif
-            
             @include('partials.navbar')
             <div class="content">
                 @yield('content')
             </div>
         </div>
+        @include('partials.footer')
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="{{ asset('plugins\jquerry\js\jquery-3.3.1.js') }}"></script>
         <script type="text/javascript" src="{{ asset('plugins\materialize\js\materialize.js') }}"></script>
