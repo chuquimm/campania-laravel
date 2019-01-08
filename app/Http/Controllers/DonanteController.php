@@ -71,8 +71,10 @@ class DonanteController extends Controller
         $departamento = substr($lugar,0,$slash_1);
         $provincia = substr($lugar, $slash_1 + 1, $slash_2 - $slash_1 - 1);
         $distrito = substr($lugar, $slash_2 + 1, strlen($lugar) - $slash_2 - 1);
+        // dd($departamento . $provincia . $distrito);
 
         $distrito_id = DB::table('distritos')->join('provincias', 'distritos.provincia_id', '=', 'provincias.id')->join('departamentos', 'provincias.departamento_id', '=', 'departamentos.id')->where('distritos.nombre', $distrito)->where('provincias.nombre', $provincia)->where('departamentos.nombre', $departamento)->value('distritos.id');
+        // dd($distrito_id);
         $donante->distrito_id = $distrito_id;
 
         // Foto
@@ -88,6 +90,12 @@ class DonanteController extends Controller
         }
 
         $donante->save();
+        
+        $campania_id = 1;
+        $donante_id = DB::table('donantes')->where('correo', $donante->correo)->value('id');
+        // dd('id: ' . $donante_id);
+        $donante = Donante::find($donante_id);
+        $donante->campanias()->attach($campania_id);
         dd($donante);
         
         // return redirect()->route('donantes.index');
