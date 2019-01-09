@@ -21,7 +21,7 @@ class CampaniaController extends Controller
     public function create()
     {
         // $formArgs = ['route' => 'campanias.store', 'method' => 'POST', 'class' => 'col s12', 'enctype' => 'multipart/form-data'];
-        $formArgs = ['route' => 'campanias.store', 'method' => 'POST'];
+        $formArgs = ['route' => 'campanias.store', 'method' => 'POST', 'submit' => 'Registrarse'];
         return view('auth.campanias.registro')->with('formArgs', $formArgs);
     }
 
@@ -45,7 +45,7 @@ class CampaniaController extends Controller
     public function edit($id)
     {
         $campania = Campania::find($id);
-        $formArgs = ['route' => ['campanias.update', $campania->id], 'method' => 'PUT'];
+        $formArgs = ['route' => ['campanias.update', $campania->id], 'method' => 'PUT', 'submit' => 'Editar'];
         return view('auth.campanias.edit')->with([
             'campania' => $campania,
             'formArgs' => $formArgs
@@ -67,7 +67,7 @@ class CampaniaController extends Controller
     public function destroy($id)
     {
         Campania::destroy($id);
-        
+
         return redirect()->route('campanias.index');
     }
 }

@@ -21,11 +21,9 @@
                         <td>{{$campania->descripcion}}</td>
                         <td>
                             <a href="{{ route('campanias.edit', $campania->id) }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">create</i></a>
-                            {{-- {{ Form::open(array('url' => 'campanias/' . $campania->id, 'class' => 'right')) }} --}}
-                            {!! Form::open(['route' => ['campanias.destroy', $campania->id], 'method' => 'DELETE', 'id' => 'deleteBtn', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['route' => ['campanias.destroy', $campania->id], 'method' => 'DELETE', 'id' => 'deleteBtn' . $campania->id , 'enctype' => 'multipart/form-data']) !!}
                                 {{ Form::hidden('_method', 'DELETE') }}
-                                {{ Form::submit('X', array('class' => 'btn-floating waves-effect waves-light red')) }}
-                                <a class="btn-floating waves-effect waves-light red" onclick="if(confirm('¿Eliminar?')){document.getElementById('deleteBtn').submit();};"></a>
+                                <button type='submit' class="btn-floating waves-effect waves-light red" onclick="return confirm('¿Eliminar?');"><i class="material-icons">clear</i></button>
                             {{ Form::close() }}
                         </td>
                     </tr>
