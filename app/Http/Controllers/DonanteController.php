@@ -7,18 +7,26 @@ use App\Donante;
 use App\Distrito;
 use App\Departamento;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class DonanteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['create','store']]);
+    }
+
     public function index()
     {
-        //
+        $donantes = Donante::orderBy('id', 'ASC')->paginate(5);
+        return view('auth.donantes.index')->with('donantes', $donantes);
     }
 
     public function create()
     {
         $distritos = Distrito::all();
-        return view('welcome')->with(['distritos' => $distritos]);
+        return view('donantes.registro')->with(['distritos' => $distritos]);
     }
 
     public function store(Request $request)
@@ -96,9 +104,12 @@ class DonanteController extends Controller
         // dd('id: ' . $donante_id);
         $donante = Donante::find($donante_id);
         $donante->campanias()->attach($campania_id);
-        dd($donante);
-        
-        // return redirect()->route('donantes.index');
+
+        if (Auth::check()) {
+            return redirect()->route('donantes.index');
+        } else {
+            return redirect()->route('inicio');
+        }
     }
 
     public function show($id)

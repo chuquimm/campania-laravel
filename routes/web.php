@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', 'DonanteController@create')->name('donantes.create');
-Route::post('/store', 'DonanteController@store')->name('donantes.store');
+Route::get('/', function ()
+{
+    return view('welcome');
+})->name('inicio');
 
-// Route::group('/', function (){
-//     Route::resource('donantes', 'DonanteController');
-// });
+Route::resource('donantes', 'DonanteController');
+Route::resource('campanias', 'CampaniaController');
+
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
