@@ -11,6 +11,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('plugins\materialize\css\materialize.css') }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="{{ asset('plugins\jquerry\js\jquery-3.3.1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins\materialize\js\materialize.js') }}"></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -20,9 +23,6 @@
             </div>
         </div>
         @include('partials.footer')
-        <!--JavaScript at end of body for optimized loading-->
-        <script type="text/javascript" src="{{ asset('plugins\jquerry\js\jquery-3.3.1.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('plugins\materialize\js\materialize.js') }}"></script>
         @yield('script')
     </body>
 </html>

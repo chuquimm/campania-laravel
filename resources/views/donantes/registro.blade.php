@@ -9,9 +9,4 @@
 
 @section('script')
     <script src="{{ asset('js\form\donante.js') }}"></script>
-    <script>
-        $('#departamento').formSelect(){
-            
-        };
-    </script>
 @endsection

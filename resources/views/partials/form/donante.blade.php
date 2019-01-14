@@ -79,9 +79,9 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row sangre">
             <div class="input-field col s4">
-                {!! Form::select('sangre', ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O'], isset($donante)?$donante->tiposangre_id<3?'A':$donante->tiposangre_id<5?'B':$donante->tiposangre_id<7?'AB':$donante->tiposangre_id<9?'O':null:null, ['placeholder' => 'Sangre', 'id' => 'sangre'/* , 'disabled'=> 'false' */])!!}
+                {!! Form::select('sangre', ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O'], isset($donante)?$donante->tiposangre_id<3?'A':$donante->tiposangre_id<5?'B':$donante->tiposangre_id<7?'AB':$donante->tiposangre_id<9?'O':null:null, ['placeholder' => 'Sangre', 'id' => 'sangre'])!!}
                 {!! Form::label('sangre', 'Sangre') !!}
             </div>
 
@@ -98,14 +98,16 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="lugar">
             <div class="input-field col s4">
-                <select name="departamento" id="departamento" placeholder="Departamento">
+                {{-- <select name="departamento" id="departamento" placeholder="Departamento">
                     @foreach ($departamentos as $departamento)
                         <option value="{!! $departamento->id !!}">{!! $departamento->nombre !!}</option>
                     @endforeach
-                </select>
+                </select> --}}
                 <label for="departamento">Departamento</label>
+                {!! Form::dbSelect('departamento', 'nombre', array('region', 'all'), '- Seleccione -') !!}
+
             </div>
         </div>
 
