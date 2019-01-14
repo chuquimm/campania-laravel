@@ -99,6 +99,17 @@
         </div>
 
         <div class="row">
+            <div class="input-field col s4">
+                <select name="departamento" id="departamento" placeholder="Departamento">
+                    @foreach ($departamentos as $departamento)
+                        <option value="{!! $departamento->id !!}">{!! $departamento->nombre !!}</option>
+                    @endforeach
+                </select>
+                <label for="departamento">Departamento</label>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col s4 m12 center">
                 <img src="{{ Storage::url(isset($donante)?$donante->foto:'avatar.png') }}" alt="" class="circle responsive-img" width="20%">
             </div>

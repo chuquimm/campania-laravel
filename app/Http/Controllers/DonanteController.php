@@ -27,8 +27,10 @@ class DonanteController extends Controller
     public function create()
     {
         $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
+        $departamentos = Departamento::all();
         return view('donantes.registro')->with([
-            'formArgs'  => $formArgs
+            'formArgs'      => $formArgs,
+            'departamentos' => $departamentos
         ]);
     }
 
