@@ -99,13 +99,6 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s12">
-                {!! Form::text('lugar', isset($distrito)?$distrito->departamento->nombre . "/". $distrito->provincia->nombre . "/". $distrito->nombre:null, ['id' => 'lugar', 'type' => 'text', 'class' => 'validate autocomplete', 'required']) !!}
-                {!! Form::label('lugar', 'Departamento / Provincia / Distrito') !!}
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col s4 m12 center">
                 <img src="{{ Storage::url(isset($donante)?$donante->foto:'avatar.png') }}" alt="" class="circle responsive-img" width="20%">
             </div>

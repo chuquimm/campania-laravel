@@ -26,10 +26,8 @@ class DonanteController extends Controller
 
     public function create()
     {
-        $distritos = Distrito::all();
         $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
         return view('donantes.registro')->with([
-            'distritos' => $distritos,
             'formArgs'  => $formArgs
         ]);
     }
@@ -77,18 +75,7 @@ class DonanteController extends Controller
             }
         }
 
-        // $donante->distrito_id = '200101';
-        $lugar = $request->lugar;
-        $slash_1 = strpos($lugar, '/');
-        $slash_2 = strpos($lugar, '/', $slash_1 + 1);
-        $departamento = substr($lugar,0,$slash_1);
-        $provincia = substr($lugar, $slash_1 + 1, $slash_2 - $slash_1 - 1);
-        $distrito = substr($lugar, $slash_2 + 1, strlen($lugar) - $slash_2 - 1);
-        // dd($departamento . $provincia . $distrito);
-
-        $distrito_id = DB::table('distritos')->join('provincias', 'distritos.provincia_id', '=', 'provincias.id')->join('departamentos', 'provincias.departamento_id', '=', 'departamentos.id')->where('distritos.nombre', $distrito)->where('provincias.nombre', $provincia)->where('departamentos.nombre', $departamento)->value('distritos.id');
-        // dd($distrito_id);
-        $donante->distrito_id = $distrito_id;
+        $donante->distrito_id = "200101";
 
         // Foto
         if ($request->hasFile('foto')) {
@@ -125,14 +112,10 @@ class DonanteController extends Controller
     public function edit($id)
     {
         $donante = Donante::find($id);
-        $distritos = Distrito::all();
-        $distrito = Distrito::find($donante->distrito_id);
         $formArgs = ['route' => ['donantes.update', $donante->id], 'method' => 'PUT', 'submit' => 'Editar'];
         return view('auth.donantes.edit')->with([
             'donante'   => $donante,
-            'formArgs'  => $formArgs,
-            'distritos' => $distritos,
-            'distrito'  => $distrito
+            'formArgs'  => $formArgs
         ]);
     }
 

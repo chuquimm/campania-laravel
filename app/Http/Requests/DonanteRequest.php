@@ -30,7 +30,6 @@ class DonanteRequest extends FormRequest
                 'dni'           => 'required|digits:8',
                 'celular'       => 'required|digits:9',
                 'fnacimiento'   => 'required|date',
-                'lugar'         => 'required', #Validar que el lugar coincida
                 'foto'          => 'file|image'
         ];
     }
