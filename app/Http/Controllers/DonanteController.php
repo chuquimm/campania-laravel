@@ -8,6 +8,7 @@ use App\Distrito;
 use App\Departamento;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\HTTP\Requests\DonanteRequest;
 
 
 class DonanteController extends Controller
@@ -26,10 +27,14 @@ class DonanteController extends Controller
     public function create()
     {
         $distritos = Distrito::all();
-        return view('donantes.registro')->with(['distritos' => $distritos]);
+        $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
+        return view('donantes.registro')->with([
+            'distritos' => $distritos,
+            'formArgs'  => $formArgs
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(DonanteRequest $request)
     {
         $donante = new Donante();
 
@@ -119,7 +124,16 @@ class DonanteController extends Controller
 
     public function edit($id)
     {
-        //
+        $donante = Donante::find($id);
+        $distritos = Distrito::all();
+        $distrito = Distrito::find($donante->distrito_id);
+        $formArgs = ['route' => ['donantes.update', $donante->id], 'method' => 'PUT', 'submit' => 'Editar'];
+        return view('auth.donantes.edit')->with([
+            'donante'   => $donante,
+            'formArgs'  => $formArgs,
+            'distritos' => $distritos,
+            'distrito'  => $distrito
+        ]);
     }
 
     public function update(Request $request, $id)
