@@ -13,6 +13,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="{{ asset('plugins\jquerry\js\jquery-3.3.1.js') }}"></script>
+        @yield('script')
         <script type="text/javascript" src="{{ asset('plugins\materialize\js\materialize.js') }}"></script>
     </head>
     <body>
@@ -23,6 +24,5 @@
             </div>
         </div>
         @include('partials.footer')
-        @yield('script')
     </body>
 </html>

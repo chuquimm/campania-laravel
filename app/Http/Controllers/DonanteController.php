@@ -15,7 +15,7 @@ class DonanteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['create','store']]);
+        $this->middleware('auth', ['except' => ['create','store', 'getProvincias', 'getDistritos']]);
     }
 
     public function index()
@@ -27,7 +27,8 @@ class DonanteController extends Controller
     public function create()
     {
         $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
-        $departamentos = Departamento::all();
+        $departamentos = DB::table('departamentos')->pluck("nombre","id");
+        // $countries = DB::table('country')->pluck("name","id");
         return view('donantes.registro')->with([
             'formArgs'      => $formArgs,
             'departamentos' => $departamentos
@@ -129,5 +130,17 @@ class DonanteController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function getProvincias($id)
+    {
+        $provincias = DB::table("provincias")->where("departamento_id",$id)->pluck("nombre","id");
+        return $provincias;
+    }
+
+    public function getDistritos($id)
+    {
+        $distritos = DB::table("distritos")->where("provincia_id",$id)->pluck("nombre","id");
+        return $distritos;
     }
 }

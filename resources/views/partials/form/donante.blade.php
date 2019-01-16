@@ -81,12 +81,12 @@
 
         <div class="row sangre">
             <div class="input-field col s4">
-                {!! Form::select('sangre', ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O'], isset($donante)?$donante->tiposangre_id<3?'A':$donante->tiposangre_id<5?'B':$donante->tiposangre_id<7?'AB':$donante->tiposangre_id<9?'O':null:null, ['placeholder' => 'Sangre', 'id' => 'sangre'])!!}
+                {!! Form::select('sangre', ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O'], isset($donante)?$donante->tiposangre_id<3?'A':$donante->tiposangre_id<5?'B':$donante->tiposangre_id<7?'AB':$donante->tiposangre_id<9?'O':null:null, ['id' => 'sangre'])!!}
                 {!! Form::label('sangre', 'Sangre') !!}
             </div>
 
             <div class="input-field col s4">
-                {!! Form::select('factor', ['+' => '+', '-' => '-'], isset($donante)?$donante->tiposangre_id<9?$donante->tiposangre_id%2==0?'-':'+':null:null, ['placeholder' => 'Factor', 'id' => 'factor'/* , 'disabled'=> 'false' */]) !!}
+                {!! Form::select('factor', ['+' => '+', '-' => '-'], isset($donante)?$donante->tiposangre_id<9?$donante->tiposangre_id%2==0?'-':'+':null:null, ['id' => 'factor']) !!}
                 {!! Form::label('factor', 'Factor') !!}
             </div>
 
@@ -99,18 +99,30 @@
         </div>
 
         <div class="row" id="lugar">
-            <div class="input-field col s4">
-                {{-- <select name="departamento" id="departamento" placeholder="Departamento">
-                    @foreach ($departamentos as $departamento)
-                        <option value="{!! $departamento->id !!}">{!! $departamento->nombre !!}</option>
+            <div class="input-field col s4 departamento">
+                <select name="departamento" id="departamento" placeholder="Departamento">
+                    <option value=""  disabled selected>Departamento</option>
+                    @foreach ($departamentos as $id => $departamento)
+                        <option value="{!! $id !!}">{!! $departamento !!}</option>
                     @endforeach
-                </select> --}}
+                </select>
                 <label for="departamento">Departamento</label>
-                {!! Form::dbSelect('departamento', 'nombre', array('region', 'all'), '- Seleccione -') !!}
-
             </div>
-        </div>
-
+            
+            <div class="input-field col s4 provincia">
+                <select name="provincia" id="provincia" placeholder="Provincia">
+                    <option value="" disabled selected>Provincia</option>
+                </select>
+                <label for="provincia">Provincia</label>
+            </div>
+            
+            <div class="input-field col s4 distrito">
+                <select name="distrito" id="distrito" placeholder="distrito">
+                    <option value="" disabled selected>Distrito</option>
+                </select>
+                <label for="distrito">Distrito</label>
+            </div>
+            
         <div class="row">
             <div class="col s4 m12 center">
                 <img src="{{ Storage::url(isset($donante)?$donante->foto:'avatar.png') }}" alt="" class="circle responsive-img" width="20%">

@@ -20,5 +20,7 @@ Route::resource('donantes', 'DonanteController');
 Route::resource('campanias', 'CampaniaController');
 
 Auth::routes(['register' => false]);
+Route::get('provincias/get/{id}', 'DonanteController@getProvincias');
+Route::get('distritos/get/{id}', 'DonanteController@getDistritos');
 
 Route::get('/home', 'HomeController@index')->name('home');
