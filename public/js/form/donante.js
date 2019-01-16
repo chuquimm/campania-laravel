@@ -1,11 +1,6 @@
-$(document).ready(function(){
-    $('.datepicker').datepicker({
-        format: 'yyyy mm dd',
-        yearRange: 100,
-        minDate: new Date(1900,0,1),
-        maxDate: new Date((new Date()).getFullYear(),new Date().getMonth(),new Date().getDate()),
-    });
-});
+/* $(document).ready(function(){
+    $('.datepicker').datepicker();
+}); */
 
 $(document).ready(function(){
     $('#provincia').prop("disabled", true);

@@ -78,7 +78,7 @@ class DonanteController extends Controller
             }
         }
 
-        $donante->distrito_id = "200101";
+        $donante->distrito_id = $request->distrito;
 
         // Foto
         if ($request->hasFile('foto')) {
