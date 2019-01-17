@@ -101,9 +101,10 @@
         <div class="row" id="lugar">
             <div class="input-field col s4 departamento">
                 <select name="departamento" id="departamento" placeholder="Departamento">
-                    <option value=""  disabled selected>Departamento</option>
+                    {{-- {!! isset($donante)?'<option value=""  disabled selected>Departamento</option>':'' !!} --}}
+                    <option value="" {!! isset($donante)?'':'selected' !!} disabled>Departamento</option>
                     @foreach ($departamentos as $id => $departamento)
-                        <option value="{!! $id !!}">{!! $departamento !!}</option>
+                        <option value="{!! $id !!}" {!! isset($donante)?($id==$donante->distrito->departamento->id)?'selected':'':'' !!}>{!! $departamento !!}</option>
                     @endforeach
                 </select>
                 <label for="departamento">Departamento</label>
@@ -111,14 +112,28 @@
             
             <div class="input-field col s4 provincia">
                 <select name="provincia" id="provincia" placeholder="Provincia">
+                    @if (isset($donante))
+                    <option value="" disabled>Provincia</option>
+                    @foreach ($donante->distrito->departamento->provincias->pluck("nombre","id"); as $id => $provincia)
+                    <option value="{!! $id !!}" {!! ($id==$donante->distrito->provincia->id)?'selected':'' !!}>{!! $provincia !!}</option>
+                    @endforeach
+                    @else
                     <option value="" disabled selected>Provincia</option>
+                    @endif
                 </select>
                 <label for="provincia">Provincia</label>
             </div>
             
             <div class="input-field col s4 distrito">
                 <select name="distrito" id="distrito" placeholder="distrito">
-                    <option value="" disabled selected>Distrito</option>
+                        @if (isset($donante))
+                        <option value="" disabled>Distrito</option>
+                        @foreach ($donante->distrito->departamento->distritos->pluck("nombre","id"); as $id => $distrito)
+                        <option value="{!! $id !!}" {!! ($id==$donante->distrito_id)?'selected':'' !!}>{!! $distrito !!}</option>
+                        @endforeach
+                        @else
+                        <option value="" disabled selected>Distrito</option>
+                        @endif
                 </select>
                 <label for="distrito">Distrito</label>
             </div>

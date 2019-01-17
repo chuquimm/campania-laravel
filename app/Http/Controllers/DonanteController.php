@@ -28,7 +28,6 @@ class DonanteController extends Controller
     {
         $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
         $departamentos = DB::table('departamentos')->pluck("nombre","id");
-        // $countries = DB::table('country')->pluck("name","id");
         return view('donantes.registro')->with([
             'formArgs'      => $formArgs,
             'departamentos' => $departamentos
@@ -116,15 +115,76 @@ class DonanteController extends Controller
     {
         $donante = Donante::find($id);
         $formArgs = ['route' => ['donantes.update', $donante->id], 'method' => 'PUT', 'submit' => 'Editar'];
+        $departamentos = DB::table('departamentos')->pluck("nombre","id");
         return view('auth.donantes.edit')->with([
-            'donante'   => $donante,
-            'formArgs'  => $formArgs
+            'donante'       => $donante,
+            'formArgs'      => $formArgs,
+            'departamentos' => $departamentos
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $donante = Donante::find($id);
+
+        $donante->nombre = $request->nombre;
+        $donante->apellido = $request->apellido;
+        $donante->correo = $request->correo;
+        $donante->dni = $request->dni;
+        $donante->celular = $request->celular;
+        $donante->fnacimiento = $request->fnacimiento;
+        $donante->genero = $request->genero;
+
+        // sangre_id
+        if ($request->checkSangre == "on") {
+            $donante->tiposangre_id = 9;
+        } else {
+            if ($request->sangre == "A") {
+                if ($request->factor == "+") {
+                    $donante->tiposangre_id = 1;
+                } else {
+                    $donante->tiposangre_id = 2;
+                } 
+            } elseif ($request->sangre == "B") {
+                if ($request->factor == "+") {
+                    $donante->tiposangre_id = 3;
+                } else {
+                    $donante->tiposangre_id = 4;
+                } 
+            } elseif ($request->sangre == "AB") {
+                if ($request->factor == "+") {
+                    $donante->tiposangre_id = 5;
+                } else {
+                    $donante->tiposangre_id = 6;
+                } 
+            } elseif ($request->sangre == "O") {
+                if ($request->factor == "+") {
+                    $donante->tiposangre_id = 7;
+                } else {
+                    $donante->tiposangre_id = 8;
+                } 
+            }
+        }
+
+        $donante->distrito_id = $request->distrito;
+
+        // Foto
+        if ($request->hasFile('foto')) {
+            $donante->foto = $request->file('foto')->store('public');
+        }
+        if ($request->sms == "on") {
+            $donante->sms = True;
+        } else {
+            $donante->sms = False;
+        }
+
+        $donante->save();
+
+        if (Auth::check()) {
+            return redirect()->route('donantes.index');
+        } else {
+            return redirect()->route('inicio');
+        }
     }
 
     public function destroy($id)

@@ -3,8 +3,8 @@
 }); */
 
 $(document).ready(function(){
-    $('#provincia').prop("disabled", true);
-    $('#distrito').prop("disabled", true);
+    // $('#provincia').prop("disabled", true);
+    // $('#distrito').prop("disabled", true);
     $('select').formSelect();
 });
 
