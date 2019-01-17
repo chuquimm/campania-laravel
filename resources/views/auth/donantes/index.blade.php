@@ -26,7 +26,10 @@
                         <td>{{$donante->sangre}}{{$donante->factor}}</td>
                         <td>
                             <a href="{{ route('donantes.edit', $donante->id) }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">create</i></a>
-                            <a href="{{ route('donantes.destroy', $donante->id) }}" class="btn-floating waves-effect waves-light red" onclick="return confirm('¿Eliminar?')"><i class="material-icons">clear</i></a>
+                            {!! Form::open(['route' => ['donantes.destroy', $donante->id], 'method' => 'DELETE', 'id' => 'deleteBtn' . $donante->id , 'enctype' => 'multipart/form-data']) !!}
+                                {{ Form::hidden('_method', 'DELETE') }}
+                                <button type='submit' class="btn-floating waves-effect waves-light red" onclick="return confirm('¿Eliminar?');"><i class="material-icons">clear</i></button>
+                            {{ Form::close() }}
                         </td>
                     </tr>
                 @endforeach

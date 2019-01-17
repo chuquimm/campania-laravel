@@ -189,7 +189,9 @@ class DonanteController extends Controller
 
     public function destroy($id)
     {
-        //
+        Donante::destroy($id);
+
+        return redirect()->route('donantes.index');
     }
     
     public function getProvincias($id)
