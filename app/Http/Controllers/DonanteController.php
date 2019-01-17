@@ -93,7 +93,7 @@ class DonanteController extends Controller
 
         $donante->save();
         
-        $campania_id = 1;
+        $campania_id = 1; // El valor se cambia por el $request->campania_id de la view de la campaña
         $donante_id = DB::table('donantes')->where('correo', $donante->correo)->value('id');
         // dd('id: ' . $donante_id);
         $donante = Donante::find($donante_id);
