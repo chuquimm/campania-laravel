@@ -67,12 +67,23 @@ class CampaniaController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CampaniaRequest $request, $id)
     {
         $campania = Campania::find($id);
 
         $campania->nombre = $request->nombre;
         $campania->descripcion = $request->descripcion;
+        $campania->meta = $request->meta;
+        
+        if ($request->estado == "on") {
+            $campania->estado = True;
+        } else {
+            $campania->estado = False;
+        }
+
+        if ($request->hasFile('imagen')) {
+            $campania->imagen = $request->file('imagen')->store('public');
+        }
 
         $campania->save();
 
