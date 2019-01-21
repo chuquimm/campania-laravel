@@ -17,6 +17,9 @@ class CreateCampaniasTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->longText('descripcion');
+            $table->boolean('estado');
+            $table->longtext('imagen');
+            $table->unsignedInteger('meta');
             $table->timestamps();
         });
     }

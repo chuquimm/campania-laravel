@@ -15,11 +15,17 @@ class CampaniasTableSeeder extends Seeder
         $campania = new Campania;
         $campania->nombre = 'Campaña 1';
         $campania->descripcion = 'Campaña de prueba 1';
+        $campania->estado = 1;
+        $campania->imagen = 'https://picsum.photos/200/300/?blur';
+        $campania->meta = 10;
         $campania->save();
         
         $campania = new Campania;
         $campania->nombre = 'Campaña 2';
         $campania->descripcion = 'Campaña de prueba 2';
+        $campania->estado = 0;
+        $campania->imagen = 'https://picsum.photos/200/300/?blur';
+        $campania->meta = 11;
         $campania->save();
     }
 }
