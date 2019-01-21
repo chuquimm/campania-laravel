@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function ()
-{
-    return view('welcome');
-})->name('inicio');
+Route::get('/', 'PageController@inicio');
+Route::get('campania/{id}', 'PageController@campania');
 
 Route::resource('donantes', 'DonanteController');
 Route::resource('campanias', 'CampaniaController');
