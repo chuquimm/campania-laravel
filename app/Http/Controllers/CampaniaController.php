@@ -67,7 +67,7 @@ class CampaniaController extends Controller
         ]);
     }
 
-    public function update(CampaniaRequest $request, $id)
+    public function update( $request, $id)
     {
         $campania = Campania::find($id);
 
