@@ -41,9 +41,9 @@ class CampaniaController extends Controller
         }
 
         if ($request->hasFile('imagen')) {
-            $campania->imagen = $request->file('foto')->store('public');
+            $campania->imagen = $request->file('imagen')->store('public');
         } else {
-            $campania->imagen = 'https://picsum.photos/500/200';
+            $campania->imagen = 'campania.jpg';
         }
 
 

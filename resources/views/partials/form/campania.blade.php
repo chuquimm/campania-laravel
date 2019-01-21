@@ -37,28 +37,32 @@
     @csrf
     <div class="row">
             <div class="input-field col s12 m5">
-                <input id="nombre" type="text" class="validate valid" required="" name="nombre" maxlength=100 value={!! isset($campania)?$campania->nombre:"" !!}>
-                {!! Form::label('nombre', 'Nombre') !!}
+                <input id="nombre" type="text" class="validate" required="" name="nombre" maxlength=100 value="{{isset($campania)?$campania->nombre:''}}">
+                <label for="nombre">Nombre</label>
             </div>
 
             <div class="input-field col s8 m5">
-                <input type="text" id="meta" name="meta" class="validate valid" required>
+                <input type="text" id="meta" name="meta" class="validate" required value="{{isset($campania)?$campania->meta:''}}">
                 <label for="meta">Meta</label>
             </div>
 
             <div class="input-field col s4 m2 switch">
                 <label>
-                <input type="checkbox" name="estado">
+                <input type="checkbox" name="estado" {{ isset($campania)?($campania->estado==true?'checked':null):null }}>
                 <span class="lever"></span>
                 Completo
                 </label>
             </div>
             
             <div class="input-field col s12">
-                <textarea id="descripcion" name="descripcion" class="materialize-textarea validate" required>{!! isset($campania)?$campania->descripcion:"" !!}</textarea>
+                <textarea id="descripcion" name="descripcion" class="materialize-textarea validate" required>{{isset($campania)?$campania->descripcion:null}}</textarea>
                 <label for="descripcion">Descripción</label>
             </div>
 
+            <div class="col s4 m12 center-align">
+                    {{-- <img src="{{ Storage::url(isset($campania)?$campania->imagen:'https://picsum.photos/500/200') }}" alt="" class="responsive-img"> --}}
+                    <img src={{ Storage::url(isset($campania)?$campania->imagen:'campania.jpg')}} alt="Imagen" class="responsive-img" width="500">
+                </div>
             <div class="file-field input-field col s6 center-align">
                 <div class="btn">
                     <span>Imagen de cabecera</span>
