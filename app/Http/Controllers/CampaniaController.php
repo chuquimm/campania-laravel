@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Campania;
+use App\HTTP\Requests\CampaniaRequest;
 
 class CampaniaController extends Controller
 {
@@ -25,7 +26,7 @@ class CampaniaController extends Controller
         return view('auth.campanias.registro')->with('formArgs', $formArgs);
     }
 
-    public function store(Request $request)
+    public function store(CampaniaRequest $request)
     {
         $campania = new Campania;
 
