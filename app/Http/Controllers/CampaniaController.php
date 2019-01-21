@@ -31,6 +31,20 @@ class CampaniaController extends Controller
 
         $campania->nombre = $request->nombre;
         $campania->descripcion = $request->descripcion;
+        $campania->meta = $request->meta;
+        
+        if ($request->estado == "on") {
+            $campania->estado = True;
+        } else {
+            $campania->estado = False;
+        }
+
+        if ($request->hasFile('imagen')) {
+            $campania->imagen = $request->file('foto')->store('public');
+        } else {
+            $campania->imagen = 'https://picsum.photos/500/200';
+        }
+
 
         $campania->save();
 
