@@ -39,7 +39,8 @@ class DonanteRequest extends FormRequest
                 'provincia'     => 'required',
                 'distrito'      => 'required',
                 'foto'          => 'file|image',
-                'terminos'      => 'required'
+                'terminos'      => 'required',
+                'campania'      => 'sometimes|exists:campanias,id'
         ];
     }
 
@@ -64,6 +65,7 @@ class DonanteRequest extends FormRequest
             'celular.digits' => 'El celular debe ser un número de 9 digitos.',
             'fnacimiento.date' => 'Vuelva a ingresar la fecha',
             'foto.image' => 'La foto debe ser una imagen.',
+            'correo.email'    => 'El correo debe ser una dirección de correo válida'
         ];
     }
 }

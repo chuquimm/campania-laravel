@@ -1,38 +1,11 @@
-@if (count($errors) > 0)
-    <script>
-        $('#alert_close').click(function(){
-            $( "#alert_box" ).fadeOut( "slow", function() {
-
-            });
-        });
-    </script>
-    <div class="row" id="alert_box">
-        <div class="col s12 m12">
-            <div class="card red darken-1">
-                <div class="row">
-                    <div class="col s12 m10">
-                        <div class="card-content white-text">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>
-                                    {{$error}}
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col s12 m2">
-                        <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
+@include('partials.errorToast')
 
 {!! Form::open(['route' => $formArgs['route'], 'method' => $formArgs['method'], 'class' => 'col s12', 'enctype' => 'multipart/form-data']) !!}
     @csrf
     <div class="row">
+            @if ($campania_id != null)
+                <input type="hidden" name="campania" value={{$campania_id}}>
+            @endif
             <div class="input-field col s6">
                 {!! Form::text('nombre', isset($donante)?$donante->nombre:null, ['id' => 'nombre', 'type' => 'text', 'class' => 'validate', 'required']) !!}
                 {!! Form::label('nombre', 'Nombre') !!}

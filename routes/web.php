@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', 'PageController@inicio');
-Route::get('campania/{id}', 'PageController@campania');
+Route::get('/', 'PageController@inicio')->name('inicio');
+// Route::get('campania/{id}', 'PageController@campania');
 
 Route::resource('donantes', 'DonanteController');
+Route::get('donantes/create/{campania_id?}', 'DonanteController@create')->name('donantes.create');
+Route::post('donantes/buscar/correo/', 'DonanteController@buscarCorreo')->name('donantes.buscar.correo');
 Route::resource('campanias', 'CampaniaController');
 
 Auth::routes(['register' => false]);

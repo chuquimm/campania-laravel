@@ -9,6 +9,7 @@ use App\Departamento;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\HTTP\Requests\DonanteRequest;
+use App\HTTP\Requests\CorreoRequest;
 
 
 class DonanteController extends Controller
@@ -24,13 +25,19 @@ class DonanteController extends Controller
         return view('auth.donantes.index')->with('donantes', $donantes);
     }
 
-    public function create()
+    public function create($campania_id = null)
     {
+        $campania_id_existe = DB::table('campanias')->where('id', $campania_id)->exists();
+        if ($campania_id != null && !$campania_id_existe) {
+            return redirect()->route('inicio');
+        }
+
         $formArgs = ['route' => 'donantes.store', 'method' => 'POST', 'submit' => 'Registrarse'];
         $departamentos = DB::table('departamentos')->pluck("nombre","id");
         return view('donantes.registro')->with([
             'formArgs'      => $formArgs,
-            'departamentos' => $departamentos
+            'departamentos' => $departamentos,
+            'campania_id'   => $campania_id
         ]);
     }
 
@@ -93,11 +100,13 @@ class DonanteController extends Controller
 
         $donante->save();
         
-        $campania_id = 1; // El valor se cambia por el $request->campania_id de la view de la campaña
-        $donante_id = DB::table('donantes')->where('correo', $donante->correo)->value('id');
-        // dd('id: ' . $donante_id);
-        $donante = Donante::find($donante_id);
-        $donante->campanias()->attach($campania_id);
+        if ($request->campania != null) {
+            # code...
+            $campania_id = $request->campania;
+            $donante_id = DB::table('donantes')->where('correo', $donante->correo)->value('id');
+            $donante = Donante::find($donante_id);
+            $donante->campanias()->attach($campania_id);
+        }
 
         if (Auth::check()) {
             return redirect()->route('donantes.index');
@@ -204,5 +213,20 @@ class DonanteController extends Controller
     {
         $distritos = DB::table("distritos")->where("provincia_id",$id)->pluck("nombre","id");
         return $distritos;
+    }
+
+    public function buscarCorreo(CorreoRequest $request)
+    {
+        $existe = DB::table('donantes')->where('correo', $request->correo)->exists();
+        if ($existe) {
+            $campania_id = $request->campania;
+            $donante_id = DB::table('donantes')->where('correo', $request->correo)->value('id');
+            $donante = Donante::find($donante_id);
+            $donante->campanias()->attach($campania_id);
+        } else {
+            return redirect()->route('donantes.create', ['campania_id' => $request->campania]);
+        }
+
+        return redirect()->route('inicio');
     }
 }
